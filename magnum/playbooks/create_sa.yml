@@ -1,0 +1,19 @@
+---
+- name: Setup student accounts for magnum on bastion
+  hosts: localhost
+  connection: local
+
+  tasks:
+  - name: Copy SA template for student
+    become: yes
+    template:
+      src: templates/sa.j2
+      dest: /tmp/sa_{{ item }}.yml
+      owner: root
+      group: root
+      mode: 0644
+    with_sequence: start=0 end=40 format=student%02x
+
+  - name: Create SA for student
+    shell: kubectl create -f /tmp/sa_{{ item }}.yml
+    with_sequence: start=0 end=40 format=student%02x

@@ -1,0 +1,19 @@
+---
+- name: Setup RoleBinding of SA for every student on magnum bastion
+  hosts: localhost
+  connection: local
+
+  tasks:
+  - name: Copy RoleBinding template for student
+    become: yes
+    template:
+      src: templates/rolebinding.j2
+      dest: /tmp/role_{{ item }}.yml
+      owner: root
+      group: root
+      mode: 0644
+    with_sequence: start=0 end=40 format=student%02x
+
+  - name: Create RoleBinding for student
+    shell: kubectl create -f /tmp/role_{{ item }}.yml
+    with_sequence: start=0 end=40 format=student%02x
