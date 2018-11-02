@@ -4,7 +4,7 @@
 This will automatically generate a token. Tokens expire after 24 hours. once token expires you will be prompted for username and password.
 
 ```
-$ oc login https://openshift.5.9.163.236.xip.io:8443 --insecure-skip-tls-verify=true
+$ oc login https://openshift.5.9.163.229.xip.io:8443 --insecure-skip-tls-verify=true
 ```
 
 ## Create OpenShift Project
@@ -17,4 +17,10 @@ $ oc new-project student1
 ## Login in to UI and explore project
 You can also create new projects in the UI.
 
-https://openshift.5.9.163.236.xip.io:8443
+https://openshift.5.9.163.229.xip.io:8443
+
+![](images/okd_login.PNG)
+
+
+After logging in you will see the service catalog and a list of projects on the right. You should see your student project.
+![](images/okd_catalog_project.PNG)

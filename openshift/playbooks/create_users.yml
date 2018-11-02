@@ -1,0 +1,13 @@
+---
+- name: Setup student accounts for magnum on bastion
+  hosts: localhost
+  connection: local
+
+  tasks:
+  - name: Create student accounts
+    become: yes
+    user:
+      name: "student{{ item }}"
+      password: "{{ lookup('password', 'credentials/' + item + '/password.txt encrypt=md5_crypt') }}"
+      state: present
+    with_sequence: start=0 end=40
