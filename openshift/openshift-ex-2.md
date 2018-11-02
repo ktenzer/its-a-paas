@@ -43,7 +43,7 @@ spec:
 
 ## Deploy App and Service
 ```
-oc create -f kubernetes-hello.yml
+$ oc create -f kubernetes-hello.yml
 ```
 
 ## Check the pods
