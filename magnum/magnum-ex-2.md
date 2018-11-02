@@ -41,16 +41,21 @@ spec:
           value: Hello World on Kubernetes!
 ```
 
+## Deploy App and Service
+```
+$ kubectl create -f kubernetes-hello.yaml
+```
+
 ## Find Node running application
 ```
-[student1@k8s-bastion ~]$ kubectl get pods -o wide
+$ kubectl get pods -o wide
 NAME                                READY     STATUS    RESTARTS   AGE       IP            NODE
 hello-kubernetes-7fc5bf6466-kkp22   1/1       Running   0          9s        10.100.76.3   k8s-test-cjw5kd63mfyl-minion-0
 ```
 
 ## Find port exposed externally on Node
 ```
-[student1@k8s-bastion ~]$ kubectl get service
+$ kubectl get service
 NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE
 hello-kubernetes NodePort 10.254.242.123 <none> 80:31188/TCP 6m
 ```
