@@ -15,7 +15,7 @@ metadata:
   namespace: student1
 ```
 ```
-$ kubectl create -f sa.yaml
+$ oc create -f sa.yaml
 ```
 
 ## Create Role
@@ -32,7 +32,7 @@ rules:
   verbs: ["get", "watch", "list"]
 ```
 ```
-$ kubectl create -f role.yaml
+$ oc create -f role.yaml
 ```
 
 ## Create Role Binding
@@ -55,15 +55,15 @@ roleRef:
   apiGroup: ""
 ```
 ```
-$ kubectl create -f rolebinding.yaml
+$ oc create -f rolebinding.yaml
 ```
 
 ## Get Token for Service Account
 We need to token for the newly created service account to use for authentication.
 
 ```
-$ kubectl -n student1 describe secret $(kubectl -n student1 get secret \
-| grep pod-viewer-user | awk '{print $1}')
+$ oc -n student1 describe secret $(kubectl -n student1 get secret \
+| grep pod-viewer-sa | awk '{print $1}')
 Name:         pod-viewer-token-t86v8
 Namespace:    student1
 Labels:       <none>
@@ -83,34 +83,38 @@ token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2V
 Using the token above create a new set of local credentials for our pod-viewer sa.
 
 ```
-$ kubectl config set-credentials pod-viewer --server=https://176.9.171.119:6443 \ --insecure-skip-tls-verify --namespace=student1 --token=eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJzdHVkZW50MSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJwb2Qtdmlld2VyLXRva2VuLXQ4NnY4Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6InBvZC12aWV3ZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI2YzUwM2YzYS1kNTFlLTExZTgtODY3OS1mYTE2M2U4NWE3ZDIiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6c3R1ZGVudDE6cG9kLXZpZXdlciJ9.iX66PdH0ZciYRoiZg9KsYHe6cszyF4mOVihVsML9OlGR6DnbMx2ooNJLpNdsfG6ssy2orHd3kxSuHs0s54ve1-zuC8LvQ7UoQ_NTi0rnyM6WX6mlZa7Ytfq8fraNFT4Fw_XHP-K0YgX5O9cIbi0-z_wBI1mBqzCHMJzDP4qjjFgzfa6ml4jUPTPcNlGMfYsjoBWRumyDQcfXh4DjKUq53QbLBSPLrpnUx2hZ1PoJ_QAHdXcDbnOlToKefIP_VAeRHwe2vxWoT3ywu6kTovOn4yfsII_xWMJRc5MAdRnW1SzsdctHE-mZdyBoWZb1vLbW8L9Xzy7vhShXwPqT8CYC7g
+$ oc login --token=<token>
 ```
 
 ## List Pods using new pod-viewer-user
 ```
-$ kubectl get pods --user=pod-viewer
-NAME READY STATUS RESTARTS AGE
-hello-kubernetes-7fc5bf6466-kkp22 1/1 Running 0 28m
+$ oc get pods -n student0
+NAME                                READY     STATUS    RESTARTS   AGE
+hello-kubernetes-7fc5bf6466-8gkk5   1/1       Running   0          1h
 ```
 
 ## Delete Pod using new pod-viewer-user
 This should fail as the sa only has permissions to view pods.
 
 ```
-$ kubectl delete pod hello-kubernetes-7fc5bf6466-kkp22 --user=pod-viewer
-Error from server (Forbidden): pods "hello-kubernetes-7fc5bf6466-kkp22" is forbidden: User "system:serviceaccount:student1:pod-viewer" cannot delete pods in the namespace "student1"
+$ oc delete pod hello-kubernetes-7fc5bf6466-8gkk5 -n student0
+Error from server (Forbidden): pods "hello-kubernetes-7fc5bf6466-8gkk5" is forbidden: User "system:serviceaccount:student0:pod-viewer-sa" cannot delete pods in the namespace "student0": no RBAC policy matched
 ```
 
 ## Delete Pod using student1 user
 ```
-$ kubectl delete pod hello-kubernetes-7fc5bf6466-kkp22 --user=student1
-pod "hello-kubernetes-7fc5bf6466-kkp22" deleted
-View Pods again using pod-viewer-user
+$ oc login -u student1
 ```
 ```
-$ kubectl get pods --user=pod-viewer
-NAME READY STATUS RESTARTS AGE
-hello-kubernetes-7fc5bf6466-hq7dh 1/1 Running 0 46s
+$ oc delete pod hello-kubernetes-7fc5bf6466-8gkk5
+pod "hello-kubernetes-7fc5bf6466-8gkk5" deleted
+```
+
+## View Pods
+```
+$ oc get pods
+NAME                                READY     STATUS    RESTARTS   AGE
+hello-kubernetes-7fc5bf6466-v5kcc   1/1       Running   0          7s
 ```
 
 Note: Pod is recreated since replication controller has a replica count of 1 in deployment config.
