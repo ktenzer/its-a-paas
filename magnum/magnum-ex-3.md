@@ -1,5 +1,5 @@
-# Exercise 3: Create an RBAC User to list pods
-K8s can use authentication like LDAP or even Keystone. In this case though we will use service accounts and tokens to show how to provide RBAC without an authentication layer.
+# Exercise 3: Create an Service Account to list pods
+In this exercise we will create a service account and setup RBAC to allow a service account to view pods in our project.
 
 You will create a new service account called pod-viewer that has permission to view pods in your student namespace.
 
@@ -47,12 +47,15 @@ roleRef:
   name: pod-viewer
   apiGroup: ""
 ```
+```
+$ kubectl create -f rolebinding.yaml
+```
 
 ## Get Token for Service Account
-We need to token for the newly created service account so we can add it to our local kubectl configuration.
+We need to token for the newly created service account to use for authentication.
 
 ```
-[student1@k8s-bastion ~]$ kubectl -n student1 describe secret $(kubectl -n student1 get secret \
+$ kubectl -n student1 describe secret $(kubectl -n student1 get secret \
 | grep pod-viewer-user | awk '{print $1}')
 Name:         pod-viewer-token-t86v8
 Namespace:    student1
@@ -78,28 +81,28 @@ $ kubectl config set-credentials pod-viewer --server=https://176.9.171.119:6443 
 
 ## List Pods using new pod-viewer-user
 ```
-[student1@k8s-bastion ~]$ kubectl get pods --user=pod-viewer
+$ kubectl get pods --user=pod-viewer
 NAME READY STATUS RESTARTS AGE
 hello-kubernetes-7fc5bf6466-kkp22 1/1 Running 0 28m
 ```
 
 ## Delete Pod using new pod-viewer-user
-This should fail as the sa only has permissions to view pods-
+This should fail as the sa only has permissions to view pods.
 
 ```
-[student1@k8s-bastion ~]$ kubectl delete pod hello-kubernetes-7fc5bf6466-kkp22 --user=pod-viewer
+$ kubectl delete pod hello-kubernetes-7fc5bf6466-kkp22 --user=pod-viewer
 Error from server (Forbidden): pods "hello-kubernetes-7fc5bf6466-kkp22" is forbidden: User "system:serviceaccount:student1:pod-viewer" cannot delete pods in the namespace "student1"
 ```
 
 ## Delete Pod using student1 user
 This should work as the student sa has admin permissions to namespace.
 ```
-[student1@k8s-bastion ~]$ kubectl delete pod hello-kubernetes-7fc5bf6466-kkp22 --user=student1
+$ kubectl delete pod hello-kubernetes-7fc5bf6466-kkp22 --user=student1
 pod "hello-kubernetes-7fc5bf6466-kkp22" deleted
 View Pods again using pod-viewer-user
 ```
 ```
-[student1@k8s-bastion ~]$ kubectl get pods --user=pod-viewer
+$ kubectl get pods --user=pod-viewer
 NAME READY STATUS RESTARTS AGE
 hello-kubernetes-7fc5bf6466-hq7dh 1/1 Running 0 46s
 ```
