@@ -10,4 +10,61 @@
       name: "{{ item }}"
       password: "{{ lookup('password', 'credentials/' + item + '/password.txt encrypt=md5_crypt') }}"
       state: present
+    with_sequence: start=0 end=0 format=student%02x
+
+  - name: Check if student namespace exists
+    shell: kubectl get namespaces |grep student
+    register: namespace_get
+
+  - name: Create student namespace
+    shell: kubectl create namespace {{ item }}
     with_sequence: start=0 end=1 format=student%02x
+    when: namespace_get.rc != 0
+
+  - name: Check if SA exists in namespace
+    shell: kubectl get sa -n {{ item }} | grep {{ item }}
+    with_sequence: start=0 end=1 format=student%02x
+    register: sa_get
+
+  - name: Copy SA template for student
+    template:
+      src: templates/sa.j2
+      dest: /tmp/sa_{{ item }}.yml
+      owner: root
+      group: root
+      mode: 0644
+    with_sequence: start=0 end=1 format=student%02x
+    when: sa_get.rc != 0
+
+  - name: Create SA for student
+    shell: kubectl create -f /tmp/sa_{{ item }}.yml
+    with_sequence: start=0 end=1 format=student%02x
+    when: sa_get.rc != 0
+
+  - name: Check if rolebinding exists
+    shell: kubectl get -n {{ item }} rolebinding |grep admin
+    with_sequence: start=0 end=1 format=student%02x
+    register: rolebinding_get
+
+  - name: Copy RoleBinding template for student
+    template:
+      src: templates/rolebinding.j2
+      dest: /tmp/role_{{ item }}.yml
+      owner: root
+      group: root
+      mode: 0644
+    with_sequence: start=0 end=1 format=student%02x
+    when: rolebinding_get.rc != 0
+
+  - name: Create SA for student
+    shell: kubectl create -f /tmp/role_{{ item }}.yml
+    with_sequence: start=0 end=1 format=student%02x
+    when: rolebinding_get.rc != 0
+
+  - name: Get student token
+    shell: kubectl -n {{ item }} describe secret $(kubectl -n {{ item }} get secret | grep {{ item }} | awk '{print $1}')
+    register: token
+
+  - name: Print token
+    debug:
+      msg: "{{ token }}"
