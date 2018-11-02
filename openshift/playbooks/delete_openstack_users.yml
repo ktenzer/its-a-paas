@@ -1,0 +1,9 @@
+---
+- name: Setup student accounts on OpenStack
+  hosts: localhost
+  connection: local
+
+  tasks:
+  - name: Get password from credentials file
+    shell: openstack user delete student{{ item }}
+    with_sequence: start=0 end=40
