@@ -13,7 +13,14 @@ kind: ServiceAccount
 metadata:
   name: student1
   namespace: student1
-Create Role in Namespace
+```
+```
+$ kubectl create -f sa.yaml
+```
+
+## Create Role
+```
+$ vi role.yaml
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -24,8 +31,8 @@ rules:
   resources: ["pods"]
   verbs: ["get", "watch", "list"]
 ```
- ```
-$ kubectl create -f sa.yaml
+```
+$ kubectl create -f role.yaml
 ```
 
 ## Create Role Binding
