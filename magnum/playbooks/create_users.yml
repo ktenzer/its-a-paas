@@ -7,17 +7,12 @@
   - name: Create student accounts
     become: yes
     user:
-      name: "{{ item }}"
+      name: "student{{ item }}"
       password: "{{ lookup('password', 'credentials/' + item + '/password.txt encrypt=md5_crypt') }}"
       state: present
-    with_sequence: start=0 end=40 format=student%02x
-
-  - name: Check if student namespace exists
-    shell: kubectl get namespaces |grep student
-    ignore_errors: yes
-    register: namespace_get
+    with_sequence: start=0 end=40
 
   - name: Create student namespace
-    shell: kubectl create namespace {{ item }}
-    with_sequence: start=0 end=40 format=student%02x
-    when: namespace_get.rc != 0
+    shell: kubectl create namespace student{{ item }}
+    #with_sequence: start=0 end=40 format=student%02x
+    with_sequence: start=0 end=40

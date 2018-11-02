@@ -2,10 +2,10 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: admin
-  namespace: {{ item }}
+  namespace: student{{ item }}
 subjects:
 - kind: ServiceAccount
-  name: {{ item }}
+  name: student{{ item }}
   apiGroup: ""
 roleRef:
   kind: ClusterRole

@@ -12,8 +12,8 @@
       owner: root
       group: root
       mode: 0644
-    with_sequence: start=0 end=40 format=student%02x
+    with_sequence: start=0 end=40
 
   - name: Create SA for student
     shell: kubectl create -f /tmp/sa_{{ item }}.yml
-    with_sequence: start=0 end=40 format=student%02x
+    with_sequence: start=0 end=40
