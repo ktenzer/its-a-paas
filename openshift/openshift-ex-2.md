@@ -64,7 +64,7 @@ hello-kubernetes   ClusterIP   172.30.33.172   <none>        80/TCP    1m
 By default all services can only communicate internally. Exposing them and thus creating a route will add an entry to the OpenShift router (running on infra nodes). It is basically an ha-proxy and will load balance as well as route incoming traffic to correct service based on the incomming URL.
 
 ```
-$ oc expose serve hello-kubernetes
+$ oc expose service hello-kubernetes
 ```
 
 ## Check routes
