@@ -8,6 +8,7 @@ ServiceAccounts & permissions.
 
 ````
 $ kubectl delete all -l app=hello-kubernetes
+deployment "hello-kubernetes" deleted
 ````
 
 ## Delete Secrets
@@ -20,7 +21,7 @@ $ kubectl get secrets
 ````
 default-token-hbl9x         kubernetes.io/service-account-token   3         3d
 pod-viewer-sa-token-drqvv   kubernetes.io/service-account-token   3         19m
-student0-token-jdhwh        kubernetes.io/service-account-token   3         3d
+student$N-token-jdhwh        kubernetes.io/service-account-token   3         3d
 ````
 
 Delete the secret
@@ -34,7 +35,7 @@ secret "pod-viewer-sa-token-drqvv" deleted
 List all RoleBindings in your namespace:
 
 ````
-[student0@bastion ~]$ kubectl get rolebindings
+$ kubectl get rolebindings
 NAME                 AGE
 admin                3d
 pod-viewer-binding   17m
@@ -43,7 +44,7 @@ pod-viewer-binding   17m
 Delete the `pod-viewer-binding` RoleBinding
 
 ````
-[student0@bastion ~]$ kubectl delete rolebinding pod-viewer-binding
+$ kubectl delete rolebinding pod-viewer-binding
 rolebinding.rbac.authorization.k8s.io "pod-viewer-binding" deleted
 ````
 
@@ -51,7 +52,7 @@ rolebinding.rbac.authorization.k8s.io "pod-viewer-binding" deleted
 List roles in your namespace:
 
 ````
-[student0@bastion ~]$ kubectl get roles
+$ kubectl get roles
 NAME         AGE
 pod-viewer   18m
 ````
@@ -59,7 +60,7 @@ pod-viewer   18m
 Delete the `pod-viewer` role
 
 ````
-[student0@bastion ~]$ kubectl delete role pod-viewer
+$ kubectl delete role pod-viewer
 role.rbac.authorization.k8s.io "pod-viewer" deleted
 ````
 
@@ -68,7 +69,7 @@ role.rbac.authorization.k8s.io "pod-viewer" deleted
 List ServiceAccounts in your namespace
 
 ````
-[student0@bastion ~]$ kubectl get sa
+$ kubectl get sa
 NAME            SECRETS   AGE
 default         1         3d
 pod-viewer-sa   1         20m
@@ -78,7 +79,7 @@ student0        1         3d
 Delete the `pod-viewer-sa` ServiceAccount
 
 ````
-[student0@bastion ~]$ kubectl delete sa pod-viewer-sa
+$ kubectl delete sa pod-viewer-sa
 serviceaccount "pod-viewer-sa" deleted
 ````
 
@@ -88,6 +89,6 @@ Verify that the `pod-viewer` ServiceAccount has been removed by attempting to
 list pods.
 
 ````
-[student0@bastion ~]$ kubectl get pods --user=pod-viewer
+$ kubectl get pods --user=pod-viewer
 error: You must be logged in to the server (Unauthorized)
 ````
