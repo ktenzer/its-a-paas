@@ -3,7 +3,7 @@ You will need to connect to the above system k8s-bastion using your student and 
 
 ## Create Kubernetes Config
 ```
-$ kubectl config set-credentials student0 --namespace=student0 --token=<token>
+$ kubectl config set-credentials student$N --namespace=student$N --token=<token>
 ```
 
 ## Set the Kubernetes Cluster
@@ -13,12 +13,12 @@ $ kubectl config set-cluster k8s --server=https://176.9.171.115:6443 --insecure-
 
 ## Set Context
 ```
-$ kubectl config set-context student0 --user=student0 --cluster=k8s --namespace=student0
+$ kubectl config set-context student$N --user=student$N --cluster=k8s --namespace=student0
 ```
 
 ## Use Context
 ```
-$ kubectl config use-context student0
+$ kubectl config use-context student$N
 ```
 
 ## List Pods in Namespace using Token
