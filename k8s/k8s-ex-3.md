@@ -12,7 +12,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: pod-viewer-sa
-  namespace: student1
+  namespace: student$N  # Change `student$N` to your current namespace
 ```
 ```
 $ kubectl create -f sa.yaml
@@ -24,7 +24,7 @@ $ vi role.yaml
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: student1
+  namespace: student$N  # Change to your current namespace
   name: pod-viewer
 rules:
 - apiGroups: [""] # "" indicates the core API group
@@ -44,7 +44,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: pod-viewer-binding
-  namespace: student1
+  namespace: student$N  # Change this to your namespace
 subjects:
 - kind: ServiceAccount
   name: pod-viewer-sa
@@ -64,11 +64,11 @@ We need to token for the newly created service account to use for authentication
 ```
 $ kubectl -n student1 describe secret $(kubectl -n student1 get secret \
 | grep pod-viewer-user | awk '{print $1}')
-Name:         pod-viewer-token-t86v8
-Namespace:    student1
+Name:         pod-viewer-token-xxxxx
+Namespace:    student$N
 Labels:       <none>
 Annotations:  kubernetes.io/service-account.name=pod-viewer
-              kubernetes.io/service-account.uid=6c503f3a-d51e-11e8-8679-fa163e85a7d2
+              kubernetes.io/service-account.uid=00000000-0000-0000-0000-000000000000
 
 Type:  kubernetes.io/service-account-token
 
@@ -83,7 +83,9 @@ token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2V
 Using the token above create a new set of local credentials for our pod-viewer sa.
 
 ```
-$ kubectl config set-credentials pod-viewer --server=https://176.9.171.119:6443 \ --insecure-skip-tls-verify --namespace=student1 --token=eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJzdHVkZW50MSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJwb2Qtdmlld2VyLXRva2VuLXQ4NnY4Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6InBvZC12aWV3ZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI2YzUwM2YzYS1kNTFlLTExZTgtODY3OS1mYTE2M2U4NWE3ZDIiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6c3R1ZGVudDE6cG9kLXZpZXdlciJ9.iX66PdH0ZciYRoiZg9KsYHe6cszyF4mOVihVsML9OlGR6DnbMx2ooNJLpNdsfG6ssy2orHd3kxSuHs0s54ve1-zuC8LvQ7UoQ_NTi0rnyM6WX6mlZa7Ytfq8fraNFT4Fw_XHP-K0YgX5O9cIbi0-z_wBI1mBqzCHMJzDP4qjjFgzfa6ml4jUPTPcNlGMfYsjoBWRumyDQcfXh4DjKUq53QbLBSPLrpnUx2hZ1PoJ_QAHdXcDbnOlToKefIP_VAeRHwe2vxWoT3ywu6kTovOn4yfsII_xWMJRc5MAdRnW1SzsdctHE-mZdyBoWZb1vLbW8L9Xzy7vhShXwPqT8CYC7g
+$ kubectl config set-credentials pod-viewer --server=https://176.9.171.119:6443 \
+    --insecure-skip-tls-verify --namespace=student1 \
+    --token=eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJzdHVkZW50MSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJwb2Qtdmlld2VyLXRva2VuLXQ4NnY4Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6InBvZC12aWV3ZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI2YzUwM2YzYS1kNTFlLTExZTgtODY3OS1mYTE2M2U4NWE3ZDIiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6c3R1ZGVudDE6cG9kLXZpZXdlciJ9.iX66PdH0ZciYRoiZg9KsYHe6cszyF4mOVihVsML9OlGR6DnbMx2ooNJLpNdsfG6ssy2orHd3kxSuHs0s54ve1-zuC8LvQ7UoQ_NTi0rnyM6WX6mlZa7Ytfq8fraNFT4Fw_XHP-K0YgX5O9cIbi0-z_wBI1mBqzCHMJzDP4qjjFgzfa6ml4jUPTPcNlGMfYsjoBWRumyDQcfXh4DjKUq53QbLBSPLrpnUx2hZ1PoJ_QAHdXcDbnOlToKefIP_VAeRHwe2vxWoT3ywu6kTovOn4yfsII_xWMJRc5MAdRnW1SzsdctHE-mZdyBoWZb1vLbW8L9Xzy7vhShXwPqT8CYC7g
 ```
 
 ## List Pods using new pod-viewer-user
@@ -103,7 +105,7 @@ Error from server (Forbidden): pods "hello-kubernetes-7fc5bf6466-kkp22" is forbi
 
 ## Delete Pod using student1 user
 ```
-$ kubectl delete pod hello-kubernetes-7fc5bf6466-kkp22 --user=student1
+$ kubectl delete pod hello-kubernetes-7fc5bf6466-kkp22 --user=student$N
 pod "hello-kubernetes-7fc5bf6466-kkp22" deleted
 View Pods again using pod-viewer-user
 ```
