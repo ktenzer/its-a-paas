@@ -44,4 +44,4 @@ Using browser connect to Kibana.
 
 Upon logging in you will be placed in your student namespace and see all the logs. At the upper right you can change the timeframe for the logs, you may need to view logs of day to see them all. In the middle you can search, for example by pod label 'hello-kubernetes'.
 
-![](images/efk_logging.PNG)
+![](images/efk_logs.PNG)
