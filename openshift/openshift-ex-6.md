@@ -1,9 +1,10 @@
-# Exercise 4: Monitoring and Logging
+# Exercise 6: Monitoring and Logging
 OpenShift provices both a monitoring and logging stack out-of-the-box. The monitoring stack is prometheus and grafana while the loging stack is kibana, elasticsearch and fluentd.
 
 The monitoring stack not only provides details performance monitoring of the cluster but also providers alerting. Prometheus provides a basic UI for viewing alerts and monitors but OpenShift provides ready-to-go Grafana dashboards that can of course be customized. Most development teams will also want to run their own prometheus in their namespaces to capture and report their application metrics.
 
 Below is the monitoring stack architecture.
+![](images/efk_architecture.PNG)
 
 ## Prometheus Graphs and Alerts
 Using browser connect to prometheus monitoring.
