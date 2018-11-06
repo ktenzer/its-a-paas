@@ -1,5 +1,4 @@
-# its-a-paas
-OpenShift vs K8s on OpenStack: It's a PaaS
+# OpenShift vs K8s on OpenStack: It's a PaaS
 
 The purpose of this repository is to provide a workshop and exercises for exploring the various PaaS infrastructure, available on OpenStack. The two obvious choices are Magnum and OpenShift. This workshop, through exercises will provide an overview of both. Upon completing the workshop, attendees should have a solid understanding for what it means to operate a PaaS on OpenStack, understand why Magnum or OpenShift might be interesting and hand-on experience with both. Attendees should walk away with the right knowledge to decide on the best PaaS for their requirements.
 
