@@ -29,3 +29,18 @@ OpenShift has been deployed using ansible and heat. You can get more information
 Below is architecture for the OpenShift environment.
 ![](images/openshift_on_openstack.png)
 
+## Basic Exercises
+There are three main exercises. Each exercise is the same for both K8s and OpenSHift. The idea is to give a feeling for the differences and learn more about PaaS. 
+
+Exercise 1: Setup Remote CLI and Student Environment
+Exercise 2: Deploy Hello World App
+Exercise 3: RBAC and Service Accounts
+
+It is reommended to run each exercise on both K8s and OpenShift before moving to next exercise.
+
+## Day 2 Operations Exercises
+These exercises should provide students more insight into operating a PaaS platform and what is involved after your apps are up and running.
+
+Exercise 4: Application Health Checks
+Exercise 5: Application Deployment Strategies
+Exercise 6: Monitoring, Metrics and Logging
