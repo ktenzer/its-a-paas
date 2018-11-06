@@ -32,15 +32,31 @@ Below is architecture for the OpenShift environment.
 ## Basic Exercises
 There are three main exercises. Each exercise is the same for both K8s and OpenSHift. The idea is to give a feeling for the differences and learn more about PaaS. 
 
-Exercise 1: Setup Remote CLI and Student Environment
-Exercise 2: Deploy Hello World App
-Exercise 3: RBAC and Service Accounts
+**Exercise 1: Setup Remote CLI and Student Environment**
+**Exercise 2: Deploy Hello World App**
+**Exercise 3: RBAC and Service Accounts**
 
 It is reommended to run each exercise on both K8s and OpenShift before moving to next exercise.
 
 ## Day 2 Operations Exercises
 These exercises should provide students more insight into operating a PaaS platform and what is involved after your apps are up and running.
 
-Exercise 4: Application Health Checks
-Exercise 5: Application Deployment Strategies
-Exercise 6: Monitoring, Metrics and Logging
+**Exercise 4: Application Health Checks**
+**Exercise 5: Application Deployment Strategies**
+**Exercise 6: Monitoring, Metrics and Logging**
+
+## Magnum Issues
+* Magnum Queens only works with one master
+* Bug in config file, missing docker volume type.
+```
+$ vi /etc/magnum/magnum.conf
+[cinder]
+default_docker_volume_type = iscsi
+```
+* Only fedora atomic images work, not coreos. Make sure you tag image properly.
+```
+$ openstack image create --disk-format qcow2 --container-format bare --public --property os_distro='fedora-atomic' --file fedora-atomic-latest.qcow2 "fedora-atomic-latest"
+```
+* Integration with OpenStack is minimal, basically just load balancer. No keystone or Cinder. You need to configure this manually.
+* Cinder does not work in Rocky. K8s until 1.14 only supports cinder v2 and this appears to be depricated in rocky.
+* Only TLS works, not sure why you would want to do unsecure but it isn't working.
