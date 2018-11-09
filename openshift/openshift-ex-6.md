@@ -27,6 +27,13 @@ One of the pre-configured alerts is KubePodNotReady. Select the '+ Info' to see 
 Your users do not have permission to view the openshift-logging project however, below you can see this pod having issues.
 ![](images/curator_image_failed.PNG)
 
+## Metrics
+CPU, Memory and Network performance are collected and displayed within projects. This is very handy for developers or those that may not have access to Grafana. Simply click on your deployment and you will see the metrics. 
+![](images/okd_metrics.PNG)
+
+You can also select the pod and then the metrics tab to view longer history of the data collected.
+![](images/okd_metrics_2.PNG)
+
 ## Grafana
 Using browser connect to grafana.
 
