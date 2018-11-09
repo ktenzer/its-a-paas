@@ -12,7 +12,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: pod-viewer-sa
-  namespace: student1
+  namespace: student<#>
 ```
 ```
 $ oc create -f sa.yaml
@@ -24,7 +24,7 @@ $ vi role.yaml
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: student1
+  namespace: student<#>
   name: pod-viewer
 rules:
 - apiGroups: [""] # "" indicates the core API group
@@ -44,7 +44,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: pod-viewer-binding
-  namespace: student1
+  namespace: student<#>
 subjects:
 - kind: ServiceAccount
   name: pod-viewer-sa
@@ -62,10 +62,10 @@ $ oc create -f rolebinding.yaml
 We need to token for the newly created service account to use for authentication.
 
 ```
-$ oc -n student1 describe secret $(kubectl -n student1 get secret \
+$ oc -n student<#> describe secret $(kubectl -n student<#> get secret \
 | grep pod-viewer-sa | awk '{print $1}')
 Name:         pod-viewer-token-t86v8
-Namespace:    student1
+Namespace:    student0
 Labels:       <none>
 Annotations:  kubernetes.io/service-account.name=pod-viewer
               kubernetes.io/service-account.uid=6c503f3a-d51e-11e8-8679-fa163e85a7d2
@@ -88,7 +88,7 @@ $ oc login --token=<token>
 
 ## List Pods using new pod-viewer-user
 ```
-$ oc get pods -n student0
+$ oc get pods -n student<#>
 NAME                                READY     STATUS    RESTARTS   AGE
 hello-kubernetes-7fc5bf6466-8gkk5   1/1       Running   0          1h
 ```
@@ -97,13 +97,13 @@ hello-kubernetes-7fc5bf6466-8gkk5   1/1       Running   0          1h
 This should fail as the sa only has permissions to view pods.
 
 ```
-$ oc delete pod hello-kubernetes-7fc5bf6466-8gkk5 -n student0
+$ oc delete pod hello-kubernetes-7fc5bf6466-8gkk5 -n student<#>
 Error from server (Forbidden): pods "hello-kubernetes-7fc5bf6466-8gkk5" is forbidden: User "system:serviceaccount:student0:pod-viewer-sa" cannot delete pods in the namespace "student0": no RBAC policy matched
 ```
 
-## Delete Pod using student1 user
+## Delete Pod using student user
 ```
-$ oc login -u student1
+$ oc login -u student<#>
 ```
 ```
 $ oc delete pod hello-kubernetes-7fc5bf6466-8gkk5
