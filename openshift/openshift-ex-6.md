@@ -14,7 +14,10 @@ Using browser connect to prometheus monitoring.
 Select the graph tab. Next select node_memory_active from the metrics dropdown and execute to see a graph on namespaces and their memory usage.
 ![](images/node_mem_prometheus.PNG)
 
-Next lets look at some alerts. Using browser connect to prometheus alert manager. You will need to login as monitor user. Only a user with minimum role of cluster-monitoring-view can login. Notice the alert manager is using OpenShift to authenticate users.
+Select alert tab. This shows the alerts that are configured.
+![](images/okd_prometheus_alerts.PNG)
+
+Next lets look at where to configure alerts. Using browser connect to prometheus alert manager. You will need to login as monitor user. Only a user with minimum role of cluster-monitoring-view can login. Notice the alert manager is using OpenShift to authenticate users.
 
 [Prometheus Alerts](https://alertmanager-main-openshift-monitoring.apps.5.9.163.226.xip.io)
 
@@ -27,9 +30,9 @@ Your users do not have permission to view the openshift-logging project however,
 ## Grafana
 Using browser connect to grafana.
 
-[Grafana](https://grafana-openshift-monitoring.apps.5.9.163.226.xip.io) You will need to l
+[Grafana](https://grafana-openshift-monitoring.apps.5.9.163.226.xip.io) 
 
-ogin as monitor user. Only a user with minimum role of cluster-monitoring-view can login. Notice Grafan is using OpenShift to authenticate users.
+You will need to login as monitor user. Only a user with minimum role of cluster-monitoring-view can login. Notice Grafan is using OpenShift to authenticate users.
 
 On the top left, next to Grafana logo, select a dashboard from dropdown. The general dashboards are those that ship with OpenShift out-of-the-box. Here we will look at the CPU and Memory utilization of the cluster.
 
