@@ -11,6 +11,18 @@ $ kubectl delete all -l app=hello-kubernetes
 deployment "hello-kubernetes" deleted
 ````
 
+## Delete Service
+```
+$ kubectl get services
+NAME                     TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+hello-kubernetes         NodeIP   172.30.89.88    <none>        80/TCP    1h
+```
+
+```
+$ kubectl delete service hello-kubernetes
+service "hello-kubernetes" deleted
+```
+
 ## Delete Secrets
 
 First, list secrets belonging to `pod-viewer-xxxxx`
