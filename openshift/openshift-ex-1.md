@@ -1,5 +1,7 @@
 # Exercise 1: Setup OpenShift Client
 
+Make sure you change the <#> to your student number.
+
 ## Login to OpenShift Cluster
 This will automatically generate a token. Tokens expire after 24 hours. once token expires you will be prompted for username and password.
 

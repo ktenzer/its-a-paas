@@ -3,6 +3,8 @@ In this exercise we will create a service account and setup RBAC to allow a serv
 
 You will create a new service account called pod-viewer that has permission to view pods in your student namespace.
 
+Make sure you change the <#> to your student number.
+
 ## Create Service Account
 Create new pod-viewer sa.
 

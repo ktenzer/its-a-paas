@@ -6,10 +6,10 @@ OpenShift allows a probe to be defined by an http get, tcp socket or a command r
 ## Define Rediness Probe and Liveness Probe
 Open a browser and connect to OpenShift. Go into your student project. Under application->deployment select the hello-kubernetes deployment. On the right under actions dropdown select 'Edit Helath Checks'.
 
-![](images/app_probes2.PNG)
+![](images/app_probes_2.PNG)
 
 Next select 'Add readiness probe'
-![](images/app_probes3.PNG)
+![](images/app_probes_3.PNG)
 
 Since our application uses http we will use a simple http get probe to test the application. Ensure the port is the destination port that the application is listening on within container, not the service. Set a delay of 30 seconds. In this case we are just using delay so we can see the readiness probe running. It will wait the delay time before doing probe. Set timeout to 5 seconds.
 
@@ -19,7 +19,7 @@ Next define a liveness probe. You can use same settings. Select save and then im
 
 ![](images/liveness_probe.PNG)
 
-OpenShift performs a rolling update. The old pod is still running (dark blue) while the new pod image is pulled. You will notice the new pod have a light circle for 30 seconds, this is due to delay of the readiness probe. Once readiness probe completes, the cutover is made to the new pod and it now has a dark blue circle while the old pod is simply deleted.
+Go back to overview and select the error next to hello-kubernetes deployment to view details. OpenShift performs a rolling update. The old pod is still running (dark blue) while the new pod image is pulled. You will notice the new pod have a light circle for 30 seconds, this is due to delay of the readiness probe. Once readiness probe completes, the cutover is made to the new pod and it now has a dark blue circle while the old pod is simply deleted.
 
 ![](images/redeployment_1.PNG)
 
@@ -68,30 +68,30 @@ spec:
           value: Welcome to Berlin
         image: paulbouwer/hello-kubernetes:1.5
         imagePullPolicy: IfNotPresent
-        livenessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 5
+        **livenessProbe:**
+          **failureThreshold: 3**
+          **httpGet:**
+            **path: /**
+            **port: 8080**
+            **scheme: HTTP**
+          **initialDelaySeconds: 10**
+          **periodSeconds: 10**
+          **successThreshold: 1**
+          **timeoutSeconds: 5**
         name: hello-kubernetes
         ports:
         - containerPort: 8080
           protocol: TCP
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 5
+        **readinessProbe:**
+          **failureThreshold: 3**
+          **httpGet:**
+            **path: /**
+            **port: 8080**
+           ** scheme: HTTP**
+          **initialDelaySeconds: 30**
+          **periodSeconds: 10**
+          **successThreshold: 1**
+          **timeoutSeconds: 5**
         resources:
           limits:
             cpu: "1"

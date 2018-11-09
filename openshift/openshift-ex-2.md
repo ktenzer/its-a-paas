@@ -1,5 +1,7 @@
 # Exercise 2: Create Hello World Application and Service
-Note: For this demo we will use Paul Bouwer's hello world app.
+Note: For this demo we will use [Paul Bouwer's](https://github.com/paulbouwer/hello-kubernetes) hello world app.
+
+Make sure you change the <#> to your student number.
 
 ## Create Service and Deployment Config
 
