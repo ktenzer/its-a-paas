@@ -6,7 +6,7 @@ OpenShfit support a variety of application deployments strategies: rolling, recr
 This is basically the same app we deployed in exercise 2 just with three replicas, the readiness/liveness probes, different labels and a different greeting.
 
 ```
-$ vi openstack-summit-hello.yml
+$ vi openstack-summit-hello.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -63,6 +63,11 @@ spec:
             timeoutSeconds: 5
 ```
 
+Deploy App and Service
+```
+$ oc create -f openstack-summit-hello.yaml
+```
+
 Expose service
 ```
 $ oc expose service hello-openstack-summit
@@ -85,7 +90,7 @@ Open browser and go to your OpenShift project. Under applications->routes, creat
 Do to browser caching, unless you remove cache you won't see balance as browser caches on client side. However you can use curl which obviously doesn't cache.
 
 ```
-$ for p in {1..1000}; do curl http://helloworld-<student#>.apps.5.9.163.226.xip.io/; sleep 1; done
+$ for p in {1..1000}; do curl http://helloworld-student<#>.apps.5.9.163.226.xip.io/; sleep 1; done
 ```
 
 Make sure you use your URL. You should observe that every two requests the service is switched. 
