@@ -68,30 +68,30 @@ spec:
           value: Welcome to Berlin
         image: paulbouwer/hello-kubernetes:1.5
         imagePullPolicy: IfNotPresent
-        **livenessProbe:**
-          **failureThreshold: 3**
-          **httpGet:**
-            **path: /**
-            **port: 8080**
-            **scheme: HTTP**
-          **initialDelaySeconds: 10**
-          **periodSeconds: 10**
-          **successThreshold: 1**
-          **timeoutSeconds: 5**
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
         name: hello-kubernetes
         ports:
         - containerPort: 8080
           protocol: TCP
-        **readinessProbe:**
-          **failureThreshold: 3**
-          **httpGet:**
-            **path: /**
-            **port: 8080**
-           ** scheme: HTTP**
-          **initialDelaySeconds: 30**
-          **periodSeconds: 10**
-          **successThreshold: 1**
-          **timeoutSeconds: 5**
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
         resources:
           limits:
             cpu: "1"
