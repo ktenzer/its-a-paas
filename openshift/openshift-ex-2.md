@@ -78,9 +78,9 @@ hello-kubernetes   hello-kubernetes-student0.apps.5.9.163.226.xip.io            
 ```
 ## Connect to application using the route (url)
 
-http://hello-kubernetes-student0.apps.5.9.163.226.xip.io
+http://hello-kubernetes-student<#>.apps.5.9.163.226.xip.io
 
 ## Check out the project in the OpenShift UI
 https://openshift.5.9.163.229.xip.io:8443
 
-![](images/hello-kubernetes.okd.PNG)
+![](images/hello-kubernetes-okd.PNG)

@@ -11,7 +11,7 @@ $ oc login https://openshift.5.9.163.229.xip.io:8443 --insecure-skip-tls-verify=
 By default users can create projects, this can be disabled. A project is a namespace but in OpenShift it is also so much more.
 
 ```
-$ oc new-project student1
+$ oc new-project student<#>
 ```
 
 ## Login in to UI and explore project
