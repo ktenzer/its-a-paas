@@ -6,7 +6,7 @@ Make sure you change the <#> to your student number.
 ## Create Service and Deployment Config
 
 ```
-$ vi kubernetes-hello.yaml
+$ vi kubernetes-hello.yml
 apiVersion: v1
 kind: Service
 metadata:
