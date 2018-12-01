@@ -64,7 +64,7 @@ $ oc create -f rolebinding.yaml
 We need to token for the newly created service account to use for authentication.
 
 ```
-$ oc -n student<#> describe secret $(kubectl -n student<#> get secret \
+$ oc -n student<#> describe secret $(oc -n student<#> get secret \
 | grep pod-viewer-sa | awk '{print $1}')
 Name:         pod-viewer-token-t86v8
 Namespace:    student0
