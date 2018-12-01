@@ -90,7 +90,7 @@ Open browser and go to your OpenShift project. Under applications->routes, creat
 Do to browser caching, unless you remove cache you won't see balance as browser caches on client side. However you can use curl which obviously doesn't cache.
 
 ```
-$ for p in {1..1000}; do curl http://helloworld-student<#>.apps.5.9.163.226.xip.io/; sleep 1; done
+$ for p in {1..1000}; do curl http://helloworld-student<#>.apps.46.4.207.250.xip.io/; sleep 1; done
 ```
 
 Make sure you use your URL. You should observe that every two requests the service is switched. 
