@@ -76,13 +76,13 @@ A light should have went on by now and you should be thinking, wow OpenShift is 
 ```
 $ oc get routes
 NAME               HOST/PORT                                           PATH      SERVICES           PORT      TERMINATION   WILDCARD
-hello-kubernetes   hello-kubernetes-student0.apps.5.9.163.226.xip.io             hello-kubernetes   8080                    None
+hello-kubernetes   hello-kubernetes-student0.apps.46.4.207.250.xip.io             hello-kubernetes   8080                    None
 ```
 ## Connect to application using the route (url)
 
-http://hello-kubernetes-student<#>.apps.5.9.163.226.xip.io
+http://hello-kubernetes-student<#>.apps.46.4.207.250.io
 
 ## Check out the project in the OpenShift UI
-https://openshift.5.9.163.229.xip.io:8443
+https://openshift.46.4.207.250.xip.io:8443
 
 ![](images/hello-kubernetes-okd.PNG)
