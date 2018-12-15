@@ -63,7 +63,7 @@ We need to token for the newly created service account to use for authentication
 
 ```
 $ kubectl -n student<#> describe secret $(kubectl -n student<#> get secret \
-| grep pod-viewer-user | awk '{print $1}')
+| grep pod-viewer-sa | awk '{print $1}')
 Name:         pod-viewer-token-xxxxx
 Namespace:    student$N
 Labels:       <none>
