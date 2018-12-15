@@ -80,9 +80,13 @@ hello-kubernetes   hello-kubernetes-student0.apps.<openshift infra public ip>.xi
 ```
 ## Connect to application using the route (url)
 
+```
 http://hello-kubernetes-student<#>.apps.<openshift infra public ip>.io
+```
 
 ## Check out the project in the OpenShift UI
+```
 https://openshift.<openshift master api public ip>.xip.io:8443
+```
 
 ![](images/hello-kubernetes-okd.PNG)
