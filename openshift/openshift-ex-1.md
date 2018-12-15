@@ -6,7 +6,7 @@ Make sure you change the <#> to your student number.
 This will automatically generate a token. Tokens expire after 24 hours. once token expires you will be prompted for username and password.
 
 ```
-$ oc login https://openshift.46.4.207.250.xip.io:8443 --insecure-skip-tls-verify=true
+$ oc login https://openshift.<openshift master api public ip>.xip.io:8443 --insecure-skip-tls-verify=true
 ```
 
 ## Create OpenShift Project
@@ -19,7 +19,7 @@ $ oc new-project student<#>
 ## Login in to UI and explore project
 You can also create new projects in the UI.
 
-https://openshift.46.4.207.250.xip.io:8443
+https://openshift.<openshift master api public ip>.xip.io:8443
 
 ![](images/okd_login.PNG)
 
