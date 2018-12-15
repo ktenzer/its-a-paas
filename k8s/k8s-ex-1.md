@@ -24,5 +24,8 @@ $ kubectl config use-context student$N
 ## List Pods in Namespace using Token
 ```
 $ kubectl get pods
+No resources found.
 ```
+
+Getting no resources found is expected because we don't have any running pods yet.
 
