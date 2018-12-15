@@ -9,7 +9,7 @@ Below is the monitoring stack architecture.
 ## Prometheus Graphs and Alerts
 Using browser connect to prometheus monitoring.
 
-[Prometheus Graphs](https://prometheus-k8s-openshift-monitoring.apps.46.4.207.247.xip.io)
+https://prometheus-k8s-openshift-monitoring.apps.<openshift infra public ip>.xip.io
 
 Select the graph tab. Next select node_memory_active from the metrics dropdown and execute to see a graph on namespaces and their memory usage.
 ![](images/node_mem_prometheus.PNG)
@@ -19,7 +19,7 @@ Select alert tab. This shows the alerts that are configured.
 
 Next lets look at where to configure alerts. Using browser connect to prometheus alert manager. You will need to login as monitor user. Only a user with minimum role of cluster-monitoring-view can login. Notice the alert manager is using OpenShift to authenticate users.
 
-[Prometheus Alerts](https://alertmanager-main-openshift-monitoring.apps.46.4.207.247.xip.io)
+https://alertmanager-main-openshift-monitoring.apps.<openshift infra public ip>.xip.io
 
 One of the pre-configured alerts is KubePodNotReady. Select the '+ Info' to see alerts for this monitor. Here we see the logging curator pod is not ready.
 ![](images/curator_alert_manager.PNG)
@@ -37,7 +37,7 @@ You can also select the pod and then the metrics tab to view longer history of t
 ## Grafana
 Using browser connect to grafana.
 
-[Grafana](https://grafana-openshift-monitoring.apps.46.4.207.247.xip.io) 
+https://grafana-openshift-monitoring.apps.<openshift infra public ip>.xip.io 
 
 You will need to login as monitor user. Only a user with minimum role of cluster-monitoring-view can login. Notice Grafan is using OpenShift to authenticate users.
 
@@ -57,7 +57,7 @@ As mentioned the logging stack used by OpenShift is EFK. On each node a fluentd 
 
 Using browser connect to Kibana.
 
-[Kibana](https://logging.apps.46.4.207.247.xip.io)
+https://logging.apps.<openshift infra public ip>.xip.io
 
 Upon logging in you will be placed in your student namespace and see all the logs. At the upper right you can change the timeframe for the logs, you may need to view logs of day to see them all. In the middle you can search, for example by pod label 'hello-kubernetes'.
 
