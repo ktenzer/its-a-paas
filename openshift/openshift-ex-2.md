@@ -70,19 +70,19 @@ $ oc expose service hello-kubernetes
 ```
 
 ## Check routes
-You will notice the route is the service + project and the wildcard domain. In this case we are using xip.io, this is just a reverse proxy. It will send anything at 5.9.163.226.xip.io to ip 5.9.163.226. This is of course the IP of our infra load balancer running in OpenStack. It is balancing traffic across the two OpenShift routers which explained above are ha-proxy containers.
+You will notice the route is the service + project and the wildcard domain. In this case we are using xip.io, this is just a reverse proxy. It will send anything at <openshift infra public ip>.xip.io to ip <openshift infra public ip>. This is of course the IP of our infra load balancer running in OpenStack. It is balancing traffic across the two OpenShift routers which explained above are ha-proxy containers.
 
 A light should have went on by now and you should be thinking, wow OpenShift is freaking awesome. This is just the beginning!
 ```
 $ oc get routes
 NAME               HOST/PORT                                           PATH      SERVICES           PORT      TERMINATION   WILDCARD
-hello-kubernetes   hello-kubernetes-student0.apps.46.4.207.247.xip.io             hello-kubernetes   8080                    None
+hello-kubernetes   hello-kubernetes-student0.apps.<openshift infra public ip>.xip.io             hello-kubernetes   8080                    None
 ```
 ## Connect to application using the route (url)
 
-http://hello-kubernetes-student<#>.apps.46.4.207.247.io
+http://hello-kubernetes-student<#>.apps.<openshift infra public ip>.io
 
 ## Check out the project in the OpenShift UI
-https://openshift.46.4.207.250.xip.io:8443
+https://openshift.<openshift master api public ip>.xip.io:8443
 
 ![](images/hello-kubernetes-okd.PNG)
